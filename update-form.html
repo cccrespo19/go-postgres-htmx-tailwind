@@ -1,0 +1,16 @@
+<h2 class="text-xl pb-2">Update {{ .Name }}</h2>
+<form class="flex flex-col bg-blue-200 p-4 rounded-lg gap-4" hx-put="/animes/{{ .Id }}" hx-target="#content" hx-swap="outerHTML">
+  <label for="name">
+    <p class="pb-1">Name</p>
+    <input class="rounded-xl px-2" type="text" id="name" name="name" value="{{ .Name }}" />
+  </label>
+  <label for="author">
+    <p class="pb-1">Author</p>
+    <input class="rounded-xl px-2" type="text" id="author" name="author" value="{{ .Author }}" />
+  </label>
+  <label for="episodes">
+    <p class="pb-1">Number of episodes</p>
+    <input class="rounded-xl px-2" type="number" id="episodes" name="episodes" value="{{ .Episodes }}" />
+  </label>
+  <button class="self-start bg-blue-400 px-8 py-2 rounded-full border-2 border-blue-400 hover:bg-blue-100 text-blue-100 font-bold hover:text-blue-950" type="submit">Update</button>
+</form>

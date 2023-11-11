@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script
+      src="https://unpkg.com/htmx.org@1.9.8"
+      integrity="sha384-rgjA7mptc2ETQqXoYC3/zJvkU7K/aP44Y+z7xQuJiVnB/422P/Ak+F/AqFR7E4Wr"
+      crossorigin="anonymous"
+    ></script>
+    <title>Test</title>
+  </head>
+  <body class="bg-blue-400 text-blue-950">
+    <div class="mx-auto w-[80%] bg-blue-100 h-screen p-4">
+      <h1 class="text-2xl font-bold pb-4">Anime list</h1>
+
+      {{ block "content" . }}
+      <div class="grid grid-cols-2 gap-4" id="content">
+        <ul>
+          {{ range . }}
+            <li class="px-4 py-2 odd:bg-blue-400 odd:text-blue-100 even:bg-blue-200 first:rounded-t-lg last:rounded-b-lg">
+              <div class="flex justify-between">
+                <span>{{.Name}} - {{ .Author }}</span>
+                <button hx-get="/update-form/{{ .Id }}" hx-target="#form-container">Update</button>
+              </div>
+              <div class="flex justify-between">
+                <span>{{ .Episodes }} episodes</span>
+                <button hx-delete="/animes/{{ .Id }}" hx-target="#content" hx-swap="outerHTML">Delete</button>
+              </div>
+            </li>
+          {{ end }}
+        </ul>
+
+        <div id="form-container">
+          <h2 class="text-xl pb-2">Add anime</h2>
+          <form class="flex flex-col bg-blue-200 p-4 rounded-lg gap-4" hx-post="/animes" hx-target="#content" hx-swap="outerHTML">
+            <label for="name">
+              <p class="pb-1">Name</p>
+              <input class="rounded-xl px-2" type="text" id="name" name="name" />
+            </label>
+            <label for="author">
+              <p class="pb-1">Author</p>
+              <input class="rounded-xl px-2" type="text" id="author" name="author" />
+            </label>
+            <label for="episodes">
+              <p class="pb-1">Number of episodes</p>
+              <input class="rounded-xl px-2" type="number" id="episodes" name="episodes" />
+            </label>
+            <button class="self-start bg-blue-400 px-8 py-2 rounded-full border-2 border-blue-400 hover:bg-blue-100 text-blue-100 font-bold hover:text-blue-950" type="submit">Add</button>
+          </form>
+        </div>
+      </div>
+      {{ end }}
+
+    </div>
+  </body>
+</html>
