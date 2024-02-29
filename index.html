@@ -17,7 +17,8 @@
 
       {{ block "content" . }}
       <div class="grid grid-cols-2 gap-4" id="content">
-        <ul>
+        {{ block "list" . }}
+        <ul hx-get="/animes" hx-trigger="every 2s">
           {{ range . }}
             <li class="px-4 py-2 odd:bg-blue-400 odd:text-blue-100 even:bg-blue-200 first:rounded-t-lg last:rounded-b-lg">
               <div class="flex justify-between">
@@ -31,6 +32,7 @@
             </li>
           {{ end }}
         </ul>
+        {{ end }}
 
         <div id="form-container">
           <h2 class="text-xl pb-2">Add anime</h2>

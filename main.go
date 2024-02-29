@@ -74,6 +74,11 @@ func main() {
 
 			tmpl := template.Must(template.ParseFiles("index.html"))
 			tmpl.ExecuteTemplate(w, "content", animes)
+		} else if r.Method == "GET" {
+			animes := getAnimes(db)
+
+			tmpl := template.Must(template.ParseFiles("index.html"))
+			tmpl.ExecuteTemplate(w, "list", animes)
 		}
 	})
 
